@@ -1,1 +1,1 @@
-# him
+# hybrid iterative method
