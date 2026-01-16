@@ -1,14 +1,13 @@
 // @author jpzxshi (jpz@pku.edu.cn)
 #pragma once
 #include <torch/script.h>
-
+#include <memory>
 namespace ln
 {
 	using Inputs = torch::jit::Stack;
 
-	c10::InferenceMode Inference_mode();
-
-	class Module:public torch::jit::Module
+	std::unique_ptr<c10::InferenceMode> Inference_mode();
+	class Module : public torch::jit::Module
 	{
 	public:
 		Module(torch::jit::Module module, c10::DeviceType device, c10::ScalarType dtype);
@@ -17,6 +16,7 @@ namespace ln
 		c10::ScalarType dtype() const;
 		void set_device(c10::DeviceType device);
 		void set_dtype(c10::ScalarType dtype);
+
 	private:
 		c10::DeviceType __device;
 		c10::ScalarType __dtype;
@@ -45,11 +45,11 @@ namespace ln
 	public:
 		Loader(c10::DeviceType device = at::kCUDA, c10::ScalarType dtype = at::kDouble);
 
-		Module load_net(const std::string& filename);
+		Module load_net(const std::string &filename);
 
-		Data load_data(const std::string& filename);
+		Data load_data(const std::string &filename);
 
-		Data_MIONet load_mionet_data(const std::string& filename);
+		Data_MIONet load_mionet_data(const std::string &filename);
 
 		c10::DeviceType load_device() const;
 		c10::ScalarType load_dtype() const;
@@ -61,6 +61,6 @@ namespace ln
 		c10::ScalarType __load_dtype;
 	};
 
-	void pickle_save(const std::string& filename, const c10::IValue& ivalue);
-	c10::IValue pickle_load(const std::string& filename);
+	void pickle_save(const std::string &filename, const c10::IValue &ivalue);
+	c10::IValue pickle_load(const std::string &filename);
 }
