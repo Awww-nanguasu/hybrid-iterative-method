@@ -98,17 +98,17 @@ def test_data():
     x = np.linspace(0, 1, num=sensors)
     plt.plot(x, data.y_train[0])
     
-#def save_data():
-#    sensors = 30
-#    train_num = 1000
-#    test_num = 1000
+def save_data():
+   sensors = 30
+   train_num = 1000
+   test_num = 1000
     
-#    data = Poisson_1d_data(sensors, train_num, test_num)
+   data = Poisson_1d_data(sensors, train_num, test_num)
 
 def main():
-    #test_gp()
+    test_gp()
     test_data()
-    #save_data()
+    save_data()
     
     
 
